@@ -19,7 +19,7 @@ public class Main {
     // 向产品表插入数据
     public static void addProduct(String picture, String name, String introduce, double price, double vipPrice,String sort) {
         String sql = "INSERT INTO product (picture, name,introduce, price, vip_price, sort,gmt_create, gmt_modified) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?, ?,?)";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -34,8 +34,8 @@ public class Main {
 
             // 设置当前时间
             java.sql.Timestamp currentTime = new java.sql.Timestamp(new Date().getTime());
-            preparedStatement.setTimestamp(6, currentTime);
             preparedStatement.setTimestamp(7, currentTime);
+            preparedStatement.setTimestamp(8, currentTime);
 
             // 执行插入操作
             int result = preparedStatement.executeUpdate();
