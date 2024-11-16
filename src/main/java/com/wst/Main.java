@@ -17,8 +17,8 @@ public class Main {
     private static final String PASSWORD = "123456";
 
     // 向产品表插入数据
-    public static void addProduct(String picture, String name, String introduce, double price, double vipPrice) {
-        String sql = "INSERT INTO product (picture, name,introduce, price, vip_price,gmt_create, gmt_modified) " +
+    public static void addProduct(String picture, String name, String introduce, double price, double vipPrice,String sort) {
+        String sql = "INSERT INTO product (picture, name,introduce, price, vip_price, sort,gmt_create, gmt_modified) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -30,7 +30,7 @@ public class Main {
             preparedStatement.setString(3, introduce);
             preparedStatement.setDouble(4, price);
             preparedStatement.setDouble(5, vipPrice);
-
+            preparedStatement.setString(6, sort);
 
             // 设置当前时间
             java.sql.Timestamp currentTime = new java.sql.Timestamp(new Date().getTime());
@@ -117,7 +117,7 @@ public class Main {
             }
         }
         for(int i=1; i<=cur; i++) {
-            addProduct(products[i][5],products[i][1],products[i][3],Double.parseDouble(products[i][4]),Double.parseDouble(products[i][4])/2);
+            addProduct(products[i][5],products[i][1],products[i][3],Double.parseDouble(products[i][4]),Double.parseDouble(products[i][4])/2,products[i][2]);
             for(int j=1; j<=5; j++) {
 
                 System.out.print(products[i][j]+"\n");
